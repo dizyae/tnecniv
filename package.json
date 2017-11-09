@@ -1,0 +1,26 @@
+{
+  "name": "scraper",
+  "version": "1.0.0",
+  "description": "HTML Scraper",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Dustin Weaver",
+  "license": "ISC",
+  "dependencies": {
+    "amazon-product-api": "^0.4.4",
+    "cheerio": "^1.0.0-rc.2",
+    "lodash": "^4.17.4",
+    "mongodb": "^2.2.33",
+    "mongoose": "^4.12.5",
+    "mongoose-string-query": "^0.2.5",
+    "mongoose-timestamp": "^0.6.0",
+    "q": "^1.5.1",
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2",
+    "restify": "^6.2.3",
+    "restify-errors": "^5.0.0",
+    "restify-plugins": "^1.6.0"
+  }
+}
