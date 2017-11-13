@@ -38,5 +38,5 @@ mongodb.connect(config.db.uri, (err, db) => {
 
     const models = require('./app/models')(db, vendors.ObjectId);
     const helpers = require('./app/helpers')(env, vendors);
-    require(`./commands/${command}`)(args, models, helpers);
+    require(`./commands/${command}.js`)(args, models, helpers);
 });

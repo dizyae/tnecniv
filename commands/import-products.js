@@ -14,7 +14,7 @@ module.exports = function(args, models, helpers) {
             .then(processResults)
             .catch(err => { 
                 console.log('Failed to import from Amazon Product Api:', err);
-                process.exit();
+                // process.exit();
             })
     }
 
@@ -23,7 +23,8 @@ module.exports = function(args, models, helpers) {
             return saveUniqueProducts(results);
         }
         if (itemPage === 10) {
-            throw  `No Results for args: ${args}`;
+            throw  `No Results for args: ${JSON.stringify(args)}`;
+            return;
         }
         itemPage++;
         searchAmazon();
@@ -38,7 +39,7 @@ module.exports = function(args, models, helpers) {
                     return;
                 }
                 console.log('Products Saved:', savedProducts);
-                process.exit(); 
+                // process.exit(); 
             })
             .catch(err => { 
                 return err;

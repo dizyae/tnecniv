@@ -6,20 +6,23 @@ module.exports = function(env, vendors) {
         awsSecret: env.awsSecret,
         awsTag: env.awsTag
     });
-
     const productGroupFilterMap = {
         laptop: [
             'NOTEBOOK_COMPUTER',
             'TABLET_COMPUTER'
         ],
         desktop: [
-            'CONSUMER_ELECTRONICS'
+            'PERSONAL_COMPUTER'
         ],
-        computerRelated: [
+        computerAccessory: [
             'COMPUTER_DRIVE_OR_STORAGE',
             'NETWORKING_DEVICE',
             'WIRELESS_ACCESSORY',
             'COMPUTER_DRIVE_OR_STORAGE',
+            'COMPUTER_SPEAKER'
+        ],
+        monitor: [
+            'MONITOR'
         ]
     }
 
@@ -29,7 +32,7 @@ module.exports = function(env, vendors) {
 
     return helper;
 
-    function searchByCategory(category, keywords, filter, itemPage) {
+    function searchByCategory(category, keywords, filter = null, itemPage, isResearch = false) {
         return client.itemSearch({
             searchIndex: category,
             keywords: keywords,
@@ -37,14 +40,18 @@ module.exports = function(env, vendors) {
             itemPage: itemPage
         })
             .then(results => {
+                if (isResearch) {
+                    return getItemAttributes(results);
+                }
                 return formatResults(results, filter);
             })
-            .catch(err => {return err});
+            .catch(err => {
+                return err;
+            });
     }
 
     // Private
     function formatResults(results, filter) {
-        // console.log(results); process.exit();
         let formattedResults = [];
         results.forEach(result => {
             let itemAttrs = result.ItemAttributes[0];
@@ -63,6 +70,15 @@ module.exports = function(env, vendors) {
         });
 
         return formattedResults;
+    }
+
+    function getItemAttributes(results) {
+        var ResultItemAttrs = [];
+        results.forEach(result => {
+            let itemAttrs = result.ItemAttributes[0];
+            ResultItemAttrs.push(itemAttrs);
+        });
+        return ResultItemAttrs;
     }
 
     function passesProductFilter(productType, filter) {

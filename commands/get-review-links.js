@@ -72,11 +72,11 @@ module.exports = function(args, models, helpers) {
             .then(saveProductLinks)
             .then(successMsg => {
                 console.log(successMsg);
-                process.exit();
+                // process.exit();
             })
             .catch(err => {
                 console.log(err);
-                process.exit();
+                // process.exit();
             });
     }
 

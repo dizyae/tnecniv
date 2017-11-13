@@ -24,7 +24,7 @@ module.exports = function(db, ObjectId) {
     function createMany(data) {
         let newDocuments = [];
         data.forEach(newDocument => {
-            if (this.isValid) {
+            if (this.isValid(newDocument)) {
                 data = Object.assign({}, data, {
                     created: new Date(),
                     updated: new Date()
