@@ -20,7 +20,7 @@ const restify      = require('restify'),
 /**
  * Route Vendor Dependencies
  */
-const vendors = require('./vendors');
+const vendors = require('./app/vendors');
 
 /**
  * Initialize Server
@@ -58,10 +58,11 @@ server.listen(config.port, () => {
             config.port,
             config.env
         );
-        const models = require('./models')(db);
-        const helpers = require('./helpers')(vendors);
-        const controllers = require('./controllers')(models, helpers);
-        require('./routes')(server, controllers);
+        const models = require('./app/models')(db, vendors.ObjectId);
+        const helpers = require('./app/helpers')(env, vendors);
+        const controllers = require('./app/controllers')(models, helpers);
+        require('./app/routes')(server, controllers);
+        require(`./app/scheduled-tasks.js`)(models, helpers, vendors.schedule);
     });
 
 });

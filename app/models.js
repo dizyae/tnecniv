@@ -4,8 +4,8 @@ module.exports = function(db, ObjectId) {
     const baseModel = require('./base-model')(db, ObjectId);
 
     const models = {
-        url: require('./app/scraper/url-model')(baseModel),
-        product: require('./app/amazon/amazon-product-model')(baseModel)
+        url: require('./scraper/url-model')(baseModel),
+        product: require('./amazon/amazon-product-model')(baseModel)
     };
 
     return models;
